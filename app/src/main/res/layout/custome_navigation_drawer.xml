@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vavViewModel"
+            type="app.m.ophthalmicuser.customViews.NavViewModel" />
+    </data>
+    <!--MAIN_DRAWER-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/customDrawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/customToolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center_horizontal"
+                    android:minHeight="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <TextView
+                        android:id="@+id/toolbarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:text="@string/home"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.Toolbar>
+
+
+                <FrameLayout
+                    android:id="@+id/fl_home_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="@color/white"
+
+                android:orientation="vertical">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RelativeLayout
+                            android:id="@+id/profileContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp12w"
+                            android:layout_marginTop="@dimen/dp18h">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/userImage"
+                                profileImg="@{vavViewModel.userImage}"
+                                android:layout_width="@dimen/dp60w"
+                                android:layout_height="@dimen/dp60h"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginStart="@dimen/dp8w"
+                                android:onClick="@{() ->vavViewModel.toProfile()}"
+                                android:src="@color/overlayBackground" />
+
+                            <TextView
+                                android:id="@+id/userName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/userImage"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginStart="@dimen/dp4w"
+                                android:layout_marginTop="@dimen/dp8h"
+                                android:layout_marginBottom="@dimen/dp8h"
+                                android:onClick="@{() ->vavViewModel.toProfile()}"
+                                android:text="@{vavViewModel.userName}"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                                android:textColor="@color/black" />
+
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/profileContainer"
+                            android:layout_marginStart="@dimen/dp8w"
+                            android:clickable="true"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toHome()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuHome"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toBooking()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/reserve"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toMedicalRecord()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuMedicalRecord"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toMyOrders()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuMyAppointment"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toAbout()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuNotifications"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.toSupport()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuCategory"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.changeLang()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuContact"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dp4h"
+                                android:onClick="@{() ->vavViewModel.logOut()}"
+                                android:padding="@dimen/dp8h"
+                                android:text="@string/menuLogout"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </ScrollView>
+
+
+            </RelativeLayout>
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+    </RelativeLayout>
+</layout>
