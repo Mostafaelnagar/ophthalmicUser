@@ -19,10 +19,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
 import com.google.firebase.storage.StorageReference;
+import com.google.gson.Gson;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.IOException;
 
+import app.m.ophthalmicuser.PassingObject;
 import app.m.ophthalmicuser.R;
 import app.m.ophthalmicuser.auth.viewModels.AuthViewModels;
 import app.m.ophthalmicuser.base.BaseFragment;
@@ -55,6 +57,7 @@ public class ProfileFragment extends BaseFragment {
         fragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         profileViewModels = new ProfileViewModels();
         fragmentProfileBinding.setProfileViewModel(profileViewModels);
+
         checkConnection();
         liveDataListeners();
 
@@ -73,12 +76,17 @@ public class ProfileFragment extends BaseFragment {
                 showMessage(profileViewModels.getReturnedMessage(), 0, 1);
             } else if (result == Codes.BACK) {
                 ((Activity) getActivity()).finish();
+            } else if (result == Codes.UPDATE_AUTH) {
+                MovementManager.startActivityWithObject(getActivity(), result, new PassingObject(Codes.UPDATE_AUTH));
+            } else if (result == Codes.UPDATE_DATA) {
+                MovementManager.startActivityWithObject(getActivity(), result, new PassingObject(Codes.UPDATE_DATA));
             }
         });
         ConnectionLiveData.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isConnected) {
                 if (isConnected) {
+
                 } else {
                     showMessage(getActivity().getString(R.string.connection_invaild_msg), 0, 1);
                 }
@@ -104,7 +112,7 @@ public class ProfileFragment extends BaseFragment {
                 Uri resultUri = result.getUri();
                 fragmentProfileBinding.logo.setImageURI(resultUri);
                 profileViewModels.filePath = resultUri;
-             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }

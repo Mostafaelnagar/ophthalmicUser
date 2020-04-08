@@ -53,12 +53,12 @@ public class NavViewModel extends BaseViewModel {
         getClicksMutableLiveData().setValue(Codes.PROFILE);
     }
 
-    public void toUserFollows() {
-        getClicksMutableLiveData().setValue(Codes.USER_FOLLOWS);
+    public void toContact() {
+        getClicksMutableLiveData().setValue(Codes.CONTACT);
     }
 
-    public void toLogin() {
-        getClicksMutableLiveData().setValue(Codes.LOGIN_SCREEN);
+    public void toDepartment() {
+        getClicksMutableLiveData().setValue(Codes.DEPARTMENT);
     }
 
     public void toMedicalRecord() {

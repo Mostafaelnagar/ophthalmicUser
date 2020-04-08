@@ -51,10 +51,6 @@ public class ReservationsFragment extends BaseFragment {
         reservationsViewModels.getClicksMutableLiveData().observe(this, result -> {
             if (result == View.VISIBLE || result == View.GONE) {
                 accessLoadingBar(result);
-            } else if (result == Codes.SEARCH) {
-                MovementManager.startActivity(getActivity(), result);
-            } else if (result == Codes.FILTER) {
-                MovementManager.startActivity(getActivity(), result);
             } else if (result == Codes.SHOW_MESSAGE_ERROR) {
                 showMessage(reservationsViewModels.getReturnedMessage(), 0, 1);
             }

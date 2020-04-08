@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="signUpViewModel"
             type="app.m.ophthalmicuser.profile.viewModels.ProfileViewModels" />
@@ -40,6 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:onClick="@{()-> signUpViewModel.goBack(context)}"
                         android:src="@drawable/ic_back" />
 
                     <TextView
@@ -62,6 +65,7 @@
                 android:layout_marginEnd="@dimen/dp15w"
                 android:hint="@string/name"
                 android:textColorHint="@color/black"
+                android:visibility="@{signUpViewModel.passingObject.code==27?View.VISIBLE:View.GONE}"
                 app:helperTextTextColor="@color/red">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -70,6 +74,33 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:inputType="text"
+                    android:text="@={signUpViewModel.userData.user_name}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/overlayBackground" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputPhone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15w"
+                android:layout_marginTop="@dimen/dp12h"
+                android:layout_marginEnd="@dimen/dp15w"
+                android:hint="@string/addressPhone"
+
+                android:textColorHint="@color/black"
+                android:visibility="@{signUpViewModel.passingObject.code==27?View.VISIBLE:View.GONE}"
+                app:helperTextTextColor="@color/red">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:inputType="phone"
+                    android:text="@={signUpViewModel.userData.phone}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/overlayBackground" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -84,6 +115,7 @@
                 android:layout_marginEnd="@dimen/dp15w"
                 android:hint="@string/email"
                 android:textColorHint="@color/black"
+                android:visibility="@{signUpViewModel.passingObject.code==28?View.VISIBLE:View.GONE}"
                 app:helperTextTextColor="@color/red">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -92,32 +124,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:inputType="textEmailAddress"
+                    android:text="@={signUpViewModel.userData.email}"
                     android:textColor="@color/black"
                     android:textColorHint="@color/overlayBackground" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/inputPhone"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp15w"
-                android:layout_marginTop="@dimen/dp12h"
-                android:layout_marginEnd="@dimen/dp15w"
-                android:hint="@string/addressPhone"
-                android:textColorHint="@color/black"
-                app:helperTextTextColor="@color/red">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userPhone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:inputType="phone"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/overlayBackground" />
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordLayout"
@@ -127,6 +137,7 @@
                 android:layout_marginStart="@dimen/dp15w"
                 android:layout_marginTop="@dimen/dp12h"
                 android:layout_marginEnd="@dimen/dp15w"
+                android:visibility="@{signUpViewModel.passingObject.code==28?View.VISIBLE:View.GONE}"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/overlayBackground">
 
@@ -148,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp16h"
                 android:background="@drawable/corner_view_primary_dark"
+                android:onClick="@{()-> signUpViewModel.updateUserDate()}"
                 android:text="@string/save"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

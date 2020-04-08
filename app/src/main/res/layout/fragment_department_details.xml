@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="homeViewModel"
-            type="app.m.ophthalmicuser.home.viewModels.HomeViewModels" />
+            name="departmentViewModel"
+            type="app.m.ophthalmicuser.settings.viewModels.SettingsViewModels" />
     </data>
 
     <ScrollView
@@ -37,22 +37,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                         android:src="@drawable/ic_back" />
+                        android:onClick="@{()->departmentViewModel.goBack(context)}"
+                        android:src="@drawable/ic_back" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/forgetPassword"
+                        android:text="@string/departmentDetails"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                         android:textColor="@color/white" />
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
 
-            <app.m.ophthalmicuser.base.NonscrollRecylerview
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp4h"
+                app:detailsAdapter="@{departmentViewModel.detailsAdapter}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

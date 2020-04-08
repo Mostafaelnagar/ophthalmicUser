@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
 
 import com.google.android.gms.tasks.Continuation;
@@ -17,7 +18,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
@@ -29,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.m.ophthalmicuser.PassingObject;
 import app.m.ophthalmicuser.R;
 import app.m.ophthalmicuser.auth.model.UserData;
 import app.m.ophthalmicuser.base.BaseViewModel;
@@ -43,13 +48,25 @@ public class ProfileViewModels extends BaseViewModel {
     private StorageReference storageReference;
     private FirebaseAuth auth;
     private FirebaseFirestore db;
+    private PassingObject passingObject;
 
     public ProfileViewModels() {
+        passingObject = new PassingObject();
         storageReference = FirebaseStorage.getInstance().getReference();
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
         userData = new UserData();
         setUserData(UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData());
+    }
+
+    public PassingObject getPassingObject() {
+        return passingObject;
+    }
+
+    @Bindable
+    public void setPassingObject(PassingObject passingObject) {
+        notifyPropertyChanged(app.m.ophthalmicuser.BR.passingObject);
+        this.passingObject = passingObject;
     }
 
     public UserData getUserData() {
@@ -63,13 +80,7 @@ public class ProfileViewModels extends BaseViewModel {
     public void updateProfileImage() {
         if (filePath != null) {
 
-//            // Code for showing progressDialog while uploading
-//            ProgressDialog progressDialog
-//                    = new ProgressDialog(MyApplication.getInstance());
-//            progressDialog.setTitle("Uploading...");
-//            progressDialog.show();
             accessLoadingBar(View.VISIBLE);
-            // Defining the child of storageReference
             StorageReference ref
                     = storageReference
                     .child(
@@ -133,6 +144,33 @@ public class ProfileViewModels extends BaseViewModel {
 
                 }
             });
+        }
+    }
+
+    public void updateUserDate() {
+        if (getPassingObject().getCode() == Codes.UPDATE_DATA) {
+            Map<String, Object> user_Map = new HashMap<>();
+            user_Map.put("user_name", getUserData().getUser_name());
+            user_Map.put("phone", getUserData().getPhone());
+            accessLoadingBar(View.VISIBLE);
+            db.collection("Users").document(getUserData().getId()).update(user_Map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        accessLoadingBar(View.GONE);
+                        UserData userData = UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData();
+                        userData.setPhone(getUserData().getPhone());
+                        userData.setUser_name(getUserData().getUser_name());
+                        UserPreferenceHelper.getInstance(MyApplication.getInstance()).userLogin(userData);
+                        setReturnedMessage("Updated Successfully");
+                        getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
+                    } else {
+                        setReturnedMessage(task.getException().getMessage());
+                        getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
+                    }
+                }
+            });
+
         }
     }
 

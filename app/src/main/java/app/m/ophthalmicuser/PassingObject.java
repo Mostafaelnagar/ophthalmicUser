@@ -13,12 +13,17 @@ public class PassingObject implements Serializable {
     private UserData objectClass;
     private ReservationsResponse reservationsResponse;
     private String object;
+    private int code;
 
     public PassingObject() {
     }
 
     public PassingObject(String object) {
         this.object = object;
+    }
+
+    public PassingObject(int code) {
+        this.code = code;
     }
 
     public PassingObject(List<Object> homeData) {
@@ -63,5 +68,13 @@ public class PassingObject implements Serializable {
 
     public void setHomeData(List<Object> homeData) {
         this.homeData = homeData;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }

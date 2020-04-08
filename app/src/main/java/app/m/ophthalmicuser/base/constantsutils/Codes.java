@@ -26,13 +26,13 @@ public class Codes {
     public static int FILTER = 229;
     public static int CART = 210;
     public static int PROFILE = 211;
-    public static int ADD_ADDRESS = 212;
+    public static int DEPARTMENT = 212;
     public static int CONTACT = 213;
     public static int LOG_OUT = 214;
     public static int COMMENTS = 215;
     public static int TERMS = 216;
 
-    public static int CURRENT_LOC = 1;
+    public static int DEPARTMENT_DETAILS = 1;
     public static int WHATSAPP = 0;
 
     public static int PAYMENT = 217;

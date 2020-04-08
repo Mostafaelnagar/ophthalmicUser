@@ -47,4 +47,5 @@
     <string name="updateAuth">Email/Password</string>
     <string name="updateData">Name/Phone</string>
     <string name="saveImage">Update Image</string>
+    <string name="departmentDetails">Department News</string>
 </resources>

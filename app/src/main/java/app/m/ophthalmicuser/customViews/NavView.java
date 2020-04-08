@@ -107,9 +107,9 @@ public class NavView extends RelativeLayout {
                 MovementManager.startActivity(context, result);
             } else if (result == Codes.LOG_OUT) {
                 loggout();
-            } else if (result == Codes.SUPPORT) {
+            } else if (result == Codes.DEPARTMENT) {
                 MovementManager.startActivity(getActivity(), result);
-            } else if (result == Codes.TERMS) {
+            } else if (result == Codes.CONTACT) {
                 MovementManager.startActivity(getActivity(), result);
             } else if (result == Codes.ABOUT) {
                 MovementManager.startActivity(getActivity(), result);

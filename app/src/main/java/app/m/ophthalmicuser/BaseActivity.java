@@ -33,7 +33,11 @@ import app.m.ophthalmicuser.databinding.ActivityBaseBinding;
 import app.m.ophthalmicuser.medicalRecord.MedicalRecordDetailsFragment;
 import app.m.ophthalmicuser.medicalRecord.MedicalRecordFragment;
 import app.m.ophthalmicuser.profile.ProfileFragment;
+import app.m.ophthalmicuser.profile.UpdateAuthFragment;
 import app.m.ophthalmicuser.reservation.ReservationsFragment;
+import app.m.ophthalmicuser.settings.ContactUsFragment;
+import app.m.ophthalmicuser.settings.DepartmentsDetailsFragment;
+import app.m.ophthalmicuser.settings.DepartmentsFragment;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -97,6 +101,10 @@ public class BaseActivity extends ParentActivity {
             MovementManager.addFragment(this, new MedicalRecordFragment(), "");
         } else if (page == Codes.PROFILE) {
             MovementManager.addFragment(this, new ProfileFragment(), "");
+        } else if (page == Codes.CONTACT) {
+            MovementManager.addFragment(this, new ContactUsFragment(), "");
+        } else if (page == Codes.DEPARTMENT) {
+            MovementManager.addFragment(this, new DepartmentsFragment(), "");
         } else if (page == Codes.MAKE_RESERVATION) {
             CreateReservationFragment fragment = new CreateReservationFragment();
             Bundle bundle = new Bundle();
@@ -111,6 +119,18 @@ public class BaseActivity extends ParentActivity {
             MovementManager.addFragment(this, fragment, "");
         } else if (page == Codes.MEDICAL_RECORD_DETAILS) {
             MedicalRecordDetailsFragment fragment = new MedicalRecordDetailsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(Params.BUNDLE, getIntent().getStringExtra(Params.BUNDLE));
+            fragment.setArguments(bundle);
+            MovementManager.addFragment(this, fragment, "");
+        } else if (page == Codes.UPDATE_AUTH || page == Codes.UPDATE_DATA) {
+            UpdateAuthFragment fragment = new UpdateAuthFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(Params.BUNDLE, getIntent().getStringExtra(Params.BUNDLE));
+            fragment.setArguments(bundle);
+            MovementManager.addFragment(this, fragment, "");
+        }else if (page == Codes.DEPARTMENT_DETAILS ) {
+            DepartmentsDetailsFragment fragment = new DepartmentsDetailsFragment();
             Bundle bundle = new Bundle();
             bundle.putString(Params.BUNDLE, getIntent().getStringExtra(Params.BUNDLE));
             fragment.setArguments(bundle);

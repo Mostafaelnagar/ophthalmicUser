@@ -29,8 +29,8 @@ public class BaseViewModel extends BaseObservable {
         getClicksMutableLiveData().setValue(visiablity);
     }
 
-    public void goBack() {
-        ((Activity) MyApplication.getInstance().getApplicationContext()).finish();
+    public void goBack(Context context) {
+        ((Activity) context).finish();
     }
 
 

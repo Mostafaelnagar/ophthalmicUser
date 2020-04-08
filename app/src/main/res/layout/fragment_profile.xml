@@ -74,7 +74,8 @@
                 android:padding="@dimen/dp8h"
                 android:text="@string/updateAuth"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -50,12 +50,8 @@ public class DepartmentsFragment extends BaseFragment {
         settingsViewModels.getClicksMutableLiveData().observe(this, result -> {
             if (result == View.VISIBLE || result == View.GONE) {
                 accessLoadingBar(result);
-            } else if (result == Codes.SEARCH) {
-                MovementManager.startActivity(getActivity(), result);
-            } else if (result == Codes.FILTER) {
-                MovementManager.startActivity(getActivity(), result);
             } else if (result == Codes.SHOW_MESSAGE_ERROR) {
-                showMessage(settingsViewModels.getReturnedMessage(), 1, 1);
+                showMessage(settingsViewModels.getReturnedMessage(), 0, 1);
             }
         });
 
@@ -63,7 +59,7 @@ public class DepartmentsFragment extends BaseFragment {
             @Override
             public void onChanged(Boolean isConnected) {
                 if (isConnected) {
-//                    homeViewModels.getHomeData();
+                    settingsViewModels.getDepartments();
                 } else {
                     showMessage(getActivity().getResources().getString(R.string.connection_invaild_msg), 0, 1);
                 }

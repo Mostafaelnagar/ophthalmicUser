@@ -11,10 +11,14 @@ import android.widget.Toast;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 
+import com.google.gson.Gson;
+
+import app.m.ophthalmicuser.PassingObject;
 import app.m.ophthalmicuser.R;
 import app.m.ophthalmicuser.auth.viewModels.AuthViewModels;
 import app.m.ophthalmicuser.base.BaseFragment;
 import app.m.ophthalmicuser.base.MovementManager;
+import app.m.ophthalmicuser.base.Params;
 import app.m.ophthalmicuser.base.Validate;
 import app.m.ophthalmicuser.base.constantsutils.Codes;
 import app.m.ophthalmicuser.databinding.FragmentSignUpBinding;
@@ -26,6 +30,8 @@ public class UpdateAuthFragment extends BaseFragment {
     FragmentUpdateProfileBinding updateProfileBinding;
     ProfileViewModels profileViewModels;
     Resources resources;
+    private String passingObject;
+    private Bundle bundle;
 
     public UpdateAuthFragment() {
         // Required empty public constructor
@@ -39,14 +45,9 @@ public class UpdateAuthFragment extends BaseFragment {
         updateProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_update_profile, container, false);
         profileViewModels = new ProfileViewModels();
         updateProfileBinding.setSignUpViewModel(profileViewModels);
-        Validate.isInputValid(updateProfileBinding.inputEmail, updateProfileBinding.userEmail, 0, getActivity());
-        Validate.isInputValid(updateProfileBinding.passwordLayout, updateProfileBinding.password, 1, getActivity());
-        Validate.isInputValid(updateProfileBinding.inputPhone, updateProfileBinding.userPhone, 2, getActivity());
-//
+        bundle = this.getArguments();
         checkConnection();
-
         liveDataListeners();
-
         return updateProfileBinding.getRoot();
     }
 
@@ -76,6 +77,10 @@ public class UpdateAuthFragment extends BaseFragment {
             @Override
             public void onChanged(Boolean isConnected) {
                 if (isConnected) {
+                    if (bundle != null) {
+                        passingObject = bundle.getString(Params.BUNDLE);
+                        profileViewModels.setPassingObject(new Gson().fromJson(passingObject, PassingObject.class));
+                     }
                     updateProfileBinding.btnSignUp.setEnabled(true);
                 } else {
                     updateProfileBinding.btnSignUp.setEnabled(false);

@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="homeItemViewModels"
-            type="app.m.ophthalmicuser.home.itemViewModels.HomeItemViewModel" />
+            name="detailsItemViewModels"
+            type="app.m.ophthalmicuser.settings.itemViewModels.DepartmentDetailsItemViewModel" />
     </data>
 
 
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp150h"
             android:src="@color/overlayBackground"
+            app:departmentImage="@{detailsItemViewModels.detailsModel.image}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -30,9 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp4w"
             android:layout_marginBottom="@dimen/dp4h"
-            android:ellipsize="end"
-            android:lines="2"
-            android:text="Master"
+            android:text="@{detailsItemViewModels.detailsModel.description}"
+            android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="@color/black_90"
             app:layout_constraintBottom_toBottomOf="parent"

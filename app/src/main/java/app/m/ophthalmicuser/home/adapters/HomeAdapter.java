@@ -5,19 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import app.m.ophthalmicuser.R;
 import app.m.ophthalmicuser.databinding.HomeItemBinding;
 import app.m.ophthalmicuser.home.itemViewModels.HomeItemViewModel;
+import app.m.ophthalmicuser.home.models.Posts;
 
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    //    public List<CategoriesItem> categoriesItems;
+    public List<Posts> postsList;
     Context context;
 
     public HomeAdapter() {
-//        categoriesItems = new ArrayList<>();
+        postsList = new ArrayList<>();
     }
 
 
@@ -31,34 +37,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        CategoriesItem dataModel = categoriesItems.get(position);
-//        setUpAnimtions(holder);
-//        CategoriesItemViewModel homeItemViewModels = new CategoriesItemViewModel(dataModel);
-//        homeItemViewModels.getItemsOperationsLiveListener().observe(((LifecycleOwner) context), new Observer<CategoriesItem>() {
-//            @Override
-//            public void onChanged(CategoriesItem categoriesItem) {
-//                UserPreferenceHelper.getInstance(context).addCategoryId(categoriesItem.getId());
-//                itemMutableLiveData.setValue(categoriesItem);
-//                notifyItemChanged(position);
-//            }
-//        });
-//        if (UserPreferenceHelper.getInstance(context).getCategoryId() != 0) {
-//            if (UserPreferenceHelper.getInstance(context).getCategoryId() == dataModel.getId()) {
-//                holder.itemBinding.catImage.setBorderColor(context.getResources().getColor(R.color.red));
-//                holder.itemBinding.catImage.setBorderWidth(6);
-//            }
-//        }
-//        holder.setViewModel(homeItemViewModels);
+        Posts dataModel = postsList.get(position);
+        HomeItemViewModel homeItemViewModels = new HomeItemViewModel(dataModel);
+        holder.setViewModel(homeItemViewModels);
     }
 
 
     @Override
     public int getItemCount() {
-//        return this.categoriesItems.size();
-        return 0;
+        return this.postsList.size();
     }
 
-    //
     @Override
     public void onViewAttachedToWindow(ViewHolder holder) {
         super.onViewAttachedToWindow(holder);
@@ -71,12 +60,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.unbind();
     }
 
-//    public void updateData(@Nullable List<CategoriesItem> data) {
-//        this.categoriesItems.clear();
-//
-//        this.categoriesItems.addAll(data);
-//        notifyDataSetChanged();
-//    }
+    public void updateData(@Nullable List<Posts> data) {
+        this.postsList.clear();
+
+        this.postsList.addAll(data);
+        notifyDataSetChanged();
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         HomeItemBinding itemBinding;

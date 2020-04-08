@@ -5,14 +5,15 @@
     <data>
 
         <variable
-            name="homeItemViewModels"
-            type="app.m.ophthalmicuser.home.itemViewModels.HomeItemViewModel" />
+            name="departmentItemViewModels"
+            type="app.m.ophthalmicuser.settings.itemViewModels.DepartmentItemViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp2h"
+        android:onClick="@{()->departmentItemViewModels.toDepartmentDetails()}"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/dp4h"
         app:cardElevation="@dimen/dp4h">
@@ -27,6 +28,8 @@
                 android:layout_height="@dimen/dp50h"
                 android:layout_margin="@dimen/dp4h"
                 android:src="@color/overlayBackground"
+                app:departmentImage="@{departmentItemViewModels.departmentmodel.image}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,21 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp4w"
                 android:layout_marginTop="@dimen/dp8h"
-                android:text="Mostafa Elnagar"
+                android:text="@{departmentItemViewModels.departmentmodel.name}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="@dimen/dp4h"
-                android:background="@color/overlayBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

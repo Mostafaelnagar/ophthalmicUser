@@ -51,12 +51,11 @@ public class ContactUsFragment extends BaseFragment {
         settingsViewModels.getClicksMutableLiveData().observe(this, result -> {
             if (result == View.VISIBLE || result == View.GONE) {
                 accessLoadingBar(result);
-            } else if (result == Codes.SEARCH) {
-                MovementManager.startActivity(getActivity(), result);
-            } else if (result == Codes.FILTER) {
-                MovementManager.startActivity(getActivity(), result);
             } else if (result == Codes.SHOW_MESSAGE_ERROR) {
-                showMessage(settingsViewModels.getReturnedMessage(), 1, 1);
+                showMessage(settingsViewModels.getReturnedMessage(), 0, 1);
+            } else if (result == Codes.SHOW_MESSAGE_SUCCESS) {
+                showMessage(settingsViewModels.getReturnedMessage(), 0, 0);
+                settingsViewModels.goBack(getActivity());
             }
         });
 
