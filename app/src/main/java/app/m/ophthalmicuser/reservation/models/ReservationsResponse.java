@@ -13,14 +13,26 @@ public class ReservationsResponse {
     private String note;
     @SerializedName("status")
     private String status;
-    @SerializedName("user_id")
-    private String user_id;
+    @SerializedName("patient")
+    private UserData patient;
     @SerializedName("time")
     private String time;
-    @SerializedName("doc_id")
+    @SerializedName("doctor_id")
     private String doc_id;
     @SerializedName("medicine")
     private String medicine;
+    @SerializedName("date")
+    private String date;
+    @SerializedName("user_id")
+    private String user_id;
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public String getMedicine() {
         return medicine;
@@ -70,12 +82,20 @@ public class ReservationsResponse {
         this.status = status;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public UserData getPatient() {
+        return patient;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setPatient(UserData patient) {
+        this.patient = patient;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {

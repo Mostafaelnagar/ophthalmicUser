@@ -27,7 +27,7 @@
                 android:layout_height="@dimen/dp50h"
                 android:layout_margin="@dimen/dp4h"
                 android:src="@color/overlayBackground"
-                app:autherImage="@{homeItemViewModels.posts.post_author.image}"
+                app:authorImage="@{homeItemViewModels.posts.post_author.image}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

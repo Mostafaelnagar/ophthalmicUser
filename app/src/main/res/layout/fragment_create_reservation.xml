@@ -97,13 +97,38 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputWorkingDates"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp16h"
+                android:hint="@string/availableDates"
+                android:textColorHint="@color/black"
+                app:helperTextTextColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputWorkingDays">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/workingDates"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:gravity="center_vertical"
+                    android:inputType="textEmailAddress"
+                    android:onClick="@{()-> reserveViewModel.showDoctorDates()}"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/overlayBackground" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp16h"
                 android:background="@drawable/corner_view_primary_border"
-                android:onClick="@{()->reserveViewModel.createResevation()}"
+                android:onClick="@{()->reserveViewModel.createReservation()}"
                 android:text="@string/send"
                 android:textAllCaps="false"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -111,7 +136,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/inputWorkingDays" />
+                app:layout_constraintTop_toBottomOf="@+id/inputWorkingDates" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

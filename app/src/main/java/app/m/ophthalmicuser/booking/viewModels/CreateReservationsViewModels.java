@@ -39,7 +39,7 @@ public class CreateReservationsViewModels extends BaseViewModel {
     UserData userData;
     private DoctorDetails doctorDetails;
     private FirebaseFirestore db;
-    public String selectedDay;
+    public String selectedDay, selectedDate;
     private List<String> workingDoctorDays = new ArrayList<>();
 
     public CreateReservationsViewModels() {
@@ -83,13 +83,16 @@ public class CreateReservationsViewModels extends BaseViewModel {
         this.passingObject = passingObject;
     }
 
-    public void createResevation() {
+    public void createReservation() {
         if (selectedDay != null) {
             accessLoadingBar(View.VISIBLE);
             Map<String, Object> reserve = new HashMap<>();
             reserve.put("doctor", getUserData());
+            reserve.put("doctor_id", getUserData().getId());
             reserve.put("user_id", UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData().getId());
+            reserve.put("patient", UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData());
             reserve.put("day", selectedDay);
+            reserve.put("date", selectedDate);
             reserve.put("status", "waiting");
             reserve.put("note", "");
             reserve.put("medicine", "");
@@ -100,20 +103,78 @@ public class CreateReservationsViewModels extends BaseViewModel {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        setReturnedMessage("Reservation added, please wait confirmation ");
-                        getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
-                        toBack();
+                        checkDocumentExist(selectedDate);
                     } else {
+                        accessLoadingBar(View.GONE);
                         setReturnedMessage(task.getException().getMessage());
                         getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
                     }
-                    accessLoadingBar(View.GONE);
                 }
             });
         } else {
             setReturnedMessage("Please select day");
             getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
         }
+    }
+
+    private void checkDocumentExist(String selectedDate) {
+        DocumentReference docIdRef = db.collection("Reservations_Counters").document(selectedDate);
+        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.e("Exists", "Document exists!" + document.getString("count"));
+                        updateDocumentCounter(document.getString("count"));
+                    } else {
+                        Log.e("Exists", "Document does not exist!");
+                        addNewDocument(selectedDate);
+                    }
+                } else {
+                    Log.e("Exists", "Failed with: ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void addNewDocument(String selectedDate) {
+        Map<String, Object> reserve = new HashMap<>();
+        reserve.put("doctor_id", getUserData().getId());
+        reserve.put("day", selectedDay);
+        reserve.put("date", selectedDate);
+        reserve.put("status", "accept");
+        reserve.put("count", 1);
+        db.collection("Reservations_Counters").document(selectedDate).set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    setReturnedMessage("Reservation added, please wait confirmation ");
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
+                    toBack();
+                } else {
+                    setReturnedMessage(task.getException().getMessage());
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
+                }
+                accessLoadingBar(View.GONE);
+            }
+        });
+    }
+
+    private void updateDocumentCounter(String oldCount) {
+        Map<String, Object> counter_Map = new HashMap<>();
+        counter_Map.put("count", Integer.valueOf(oldCount) + 1);
+
+        db.collection("Reservations_Counters").document(selectedDate).update(counter_Map)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        accessLoadingBar(View.GONE);
+                        setReturnedMessage("Reservation added, please wait confirmation ");
+                        getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_SUCCESS);
+                        toBack();
+                    }
+                });
     }
 
     public void getWorkingDays() {
@@ -134,6 +195,10 @@ public class CreateReservationsViewModels extends BaseViewModel {
 
     public void showDoctorDays() {
         getClicksMutableLiveData().setValue(Codes.SHOW_DIALOG);
+    }
+
+    public void showDoctorDates() {
+        getClicksMutableLiveData().setValue(Codes.SHOW_DATES);
     }
 
     public void toBack() {

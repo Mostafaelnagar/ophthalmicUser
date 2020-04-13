@@ -12,7 +12,7 @@ public class Codes {
     public static int DOCTOR_PROFILE = 20;
     public static int MEDICAL_RECORD = 21;
     public static int MEDICAL_RECORD_DETAILS = 22;
-    public static int SEARCH = 23;
+    public static int SHOW_DATES = 23;
     public static int MAKE_RESERVATION = 24;
     public static int REGISTER_SCREEN = 25;
     public static int SHOW_DIALOG = 26;

@@ -1,10 +1,14 @@
 package app.m.ophthalmicuser.reservation.itemViewModels;
 
- import android.widget.ImageView;
+import android.widget.ImageView;
 
 import androidx.databinding.Bindable;
 import androidx.databinding.BindingAdapter;
- import app.m.ophthalmicuser.base.BaseViewModel;
+
+import com.squareup.picasso.Picasso;
+
+import app.m.ophthalmicuser.R;
+import app.m.ophthalmicuser.base.BaseViewModel;
 import app.m.ophthalmicuser.base.constantsutils.Codes;
 import app.m.ophthalmicuser.reservation.models.ReservationsResponse;
 
@@ -27,7 +31,8 @@ public class ReservationsItemViewModel extends BaseViewModel {
 
     @BindingAdapter({"doctorImage"})
     public static void loadImage(ImageView view, String countryImage) {
-//        Glide.
+        if (!countryImage.equals(""))
+            Picasso.get().load(countryImage).placeholder(R.color.overlayBackground).into(view);
     }
 
 }
