@@ -158,7 +158,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dp4h"
-                                android:onClick="@{() ->vavViewModel.toAbout()}"
+                                android:onClick="@{() ->vavViewModel.toNotifications()}"
                                 android:padding="@dimen/dp8h"
                                 android:text="@string/menuNotifications"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

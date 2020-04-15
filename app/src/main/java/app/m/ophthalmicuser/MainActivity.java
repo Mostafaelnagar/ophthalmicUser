@@ -29,10 +29,6 @@ public class MainActivity extends ParentActivity {
     public MutableLiveData<Integer> dialogLiveData;
     public NavView navView;
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

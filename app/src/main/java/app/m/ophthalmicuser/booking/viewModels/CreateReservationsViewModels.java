@@ -99,10 +99,12 @@ public class CreateReservationsViewModels extends BaseViewModel {
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             Date dateobj = new Date();
             reserve.put("time", df.format(dateobj));
-            db.collection("Reservations").document().set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            DocumentReference documentReference = db.collection("Reservations").document();
+            documentReference.set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        saveNotifications(documentReference.getId());
                         checkDocumentExist(selectedDate);
                     } else {
                         accessLoadingBar(View.GONE);
@@ -117,6 +119,28 @@ public class CreateReservationsViewModels extends BaseViewModel {
         }
     }
 
+    private void saveNotifications(String id) {
+        Map<String, Object> reserve = new HashMap<>();
+        reserve.put("title", "New reservation");
+        reserve.put("body", "new reservation from " + UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData().getUser_name());
+        reserve.put("reserve_id", id);
+        reserve.put("user_id", UserPreferenceHelper.getInstance(MyApplication.getInstance()).getUserData().getId());
+        reserve.put("to", "manager");
+        DocumentReference documentReference = db.collection("Notifications").document();
+        documentReference.set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+
+                } else {
+                    accessLoadingBar(View.GONE);
+                    setReturnedMessage(task.getException().getMessage());
+                    getClicksMutableLiveData().setValue(Codes.SHOW_MESSAGE_ERROR);
+                }
+            }
+        });
+    }
+
     private void checkDocumentExist(String selectedDate) {
         DocumentReference docIdRef = db.collection("Reservations_Counters").document(selectedDate);
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -125,7 +149,6 @@ public class CreateReservationsViewModels extends BaseViewModel {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Log.e("Exists", "Document exists!" + document.getString("count"));
                         updateDocumentCounter(document.getString("count"));
                     } else {
                         Log.e("Exists", "Document does not exist!");
@@ -163,7 +186,7 @@ public class CreateReservationsViewModels extends BaseViewModel {
 
     private void updateDocumentCounter(String oldCount) {
         Map<String, Object> counter_Map = new HashMap<>();
-        counter_Map.put("count", Integer.valueOf(oldCount) + 1);
+        counter_Map.put("count", String.valueOf(Integer.valueOf(oldCount) + 1));
 
         db.collection("Reservations_Counters").document(selectedDate).update(counter_Map)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

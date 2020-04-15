@@ -32,6 +32,7 @@ import app.m.ophthalmicuser.booking.DoctorsProfileFragment;
 import app.m.ophthalmicuser.databinding.ActivityBaseBinding;
 import app.m.ophthalmicuser.medicalRecord.MedicalRecordDetailsFragment;
 import app.m.ophthalmicuser.medicalRecord.MedicalRecordFragment;
+import app.m.ophthalmicuser.notifications.NotificationsFragment;
 import app.m.ophthalmicuser.profile.ProfileFragment;
 import app.m.ophthalmicuser.profile.UpdateAuthFragment;
 import app.m.ophthalmicuser.reservation.ReservationsFragment;
@@ -48,16 +49,7 @@ public class BaseActivity extends ParentActivity {
     public String lang;
 
     @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/font1.otf")
-                .setFontAttrId(R.attr.fontPath)
-                .build());
         super.onCreate(savedInstanceState);
         activityBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base);
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
@@ -95,6 +87,8 @@ public class BaseActivity extends ParentActivity {
             MovementManager.addFragment(this, new EmailConfirmationFragment(), "");
         } else if (page == Codes.BOOKING) {
             MovementManager.addFragment(this, new DoctorsFragment(), "");
+        } else if (page == Codes.NOTIFICATIONS) {
+            MovementManager.addFragment(this, new NotificationsFragment(), "");
         } else if (page == Codes.MY_ORDERS) {
             MovementManager.addFragment(this, new ReservationsFragment(), "");
         } else if (page == Codes.MEDICAL_RECORD) {
