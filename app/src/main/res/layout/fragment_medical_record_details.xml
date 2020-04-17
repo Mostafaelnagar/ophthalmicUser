@@ -122,6 +122,54 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_rays_title" />
 
+            <TextView
+                android:id="@+id/tv_doctor_x_rays_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp12h"
+                android:text="@string/medicalDesc"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_rays" />
+
+            <TextView
+                android:id="@+id/tv_doctor_x_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp12h"
+                android:hint="@string/xRaysDescHint"
+                android:text="@{medicalRecordViewModel.rays.x_ray_desc}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_rays_desc" />
+
+            <TextView
+                android:id="@+id/tv_doctor_x_rays_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp12h"
+                android:text="@string/medicalResult"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_desc" />
+
+            <TextView
+                android:id="@+id/tv_doctor_x_result"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp12h"
+                android:hint="@string/xRayResultHint"
+                android:text="@{medicalRecordViewModel.rays.x_ray_result}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_rays_result" />
+
             <ImageView
                 android:layout_width="@dimen/dp150h"
                 android:layout_height="@dimen/dp150h"
@@ -130,7 +178,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_rays"
+                app:layout_constraintTop_toBottomOf="@+id/tv_doctor_x_result"
                 app:rayImage="@{medicalRecordViewModel.rays.x_ray_image}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

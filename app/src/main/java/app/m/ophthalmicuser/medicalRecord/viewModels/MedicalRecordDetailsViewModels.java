@@ -73,6 +73,7 @@ public class MedicalRecordDetailsViewModels extends BaseViewModel {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 accessLoadingBar(View.GONE);
                 setRays(documentSnapshot.toObject(XRays.class));
+                Log.e("onSuccess", "onSuccess: " + documentSnapshot.getString("x_ray_desc"));
                 notifyChange();
             }
         });

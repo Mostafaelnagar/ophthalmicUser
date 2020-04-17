@@ -49,4 +49,8 @@
     <string name="saveImage">Update Image</string>
     <string name="departmentDetails">Department News</string>
     <string name="availableDates">Available dates</string>
+    <string name="medicalDesc">Description</string>
+    <string name="xRaysDescHint">No- Description approved</string>
+    <string name="xRayResultHint">No - result approved</string>
+    <string name="medicalResult">Result</string>
 </resources>

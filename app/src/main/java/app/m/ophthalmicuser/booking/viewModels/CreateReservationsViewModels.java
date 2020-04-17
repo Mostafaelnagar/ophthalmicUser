@@ -167,7 +167,7 @@ public class CreateReservationsViewModels extends BaseViewModel {
         reserve.put("day", selectedDay);
         reserve.put("date", selectedDate);
         reserve.put("status", "accept");
-        reserve.put("count", 1);
+        reserve.put("count", "1");
         db.collection("Reservations_Counters").document(selectedDate).set(reserve).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

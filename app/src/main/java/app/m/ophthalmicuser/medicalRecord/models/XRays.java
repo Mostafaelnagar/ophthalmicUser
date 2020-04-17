@@ -9,6 +9,36 @@ public class XRays {
     private String x_ray_image;
     @SerializedName("x_ray_name")
     private String x_ray_name;
+    @SerializedName("x_ray_desc")
+    private String x_ray_desc;
+    @SerializedName("x_ray_result")
+    private String x_ray_result;
+    @SerializedName("status")
+    private boolean status;
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getX_ray_desc() {
+        return x_ray_desc;
+    }
+
+    public void setX_ray_desc(String x_ray_desc) {
+        this.x_ray_desc = x_ray_desc;
+    }
+
+    public String getX_ray_result() {
+        return x_ray_result;
+    }
+
+    public void setX_ray_result(String x_ray_result) {
+        this.x_ray_result = x_ray_result;
+    }
 
     public String getPatient_id() {
         return patient_id;

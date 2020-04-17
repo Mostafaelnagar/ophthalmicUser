@@ -21,7 +21,7 @@ public class NotificationsItemViewModels extends BaseViewModel {
 
 
     public void itemAction() {
-        getClicksMutableLiveData().setValue(Codes.MY_ORDERS);
+        getClicksMutableLiveData().setValue(Codes.MEDICAL_RECORD);
     }
 
 
